@@ -7,8 +7,20 @@
     <script src='//code.jquery.com/jquery-1.12.0.min.js'></script>
     <script>
         $(function(){
+            var tempA = [0,0,0];
+            var tempR;
+            var randomColor = function(){for(var i = 0;i<3;i++){
+                tempR = Math.floor(Math.random()*1000);
+                while(tempR>255){
+                    tempR = Math.floor(Math.random()*1000);
+                }
+                tempA[i] = tempR;
+            }
+                colors[3] = 'rgb(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ')';
+            };
             $('#banner').css('display','none');
-            var colors = ['rgb(255,0,0)','rgb(0,200,0)','rgb(0,50,255)','rgb(100,100,100)'];
+            var colors = ['rgb(255,30,30)','rgb(50,250,0)','rgb(0,140,250)','rgb(100,100,100)'];
+            var borderColors = ['rgb(190,0,0)','rgb(0,200,0)','rgb(0,50,255)'];
             var bannerColor;
             var borderColor;
             $('.bannerColor').click(function(){
@@ -18,7 +30,7 @@
                 borderColor = $(this).val();
             });
             $('#generate').click(function(){
-                $('#banner').css({'display':'block','width':'1000px','height':'200px','align':'center','border':'3px solid'});
+                $('#banner').css({'display':'block','width':'1000px','height':'200px','border':'3px solid'});
                 var title = $('#title').val();
                 var desc = $('#desc').val();
                 $('h1').html(title);
@@ -36,19 +48,21 @@
                         $('#banner').css('background-color',colors[2]);
                         break;
                     default:
+                        randomColor();
                         $('#banner').css('background-color',colors[3]);
                 }
                 switch(borderColor){
                     case 'red':
-                        $('#banner').css('border-color',colors[0]);
+                        $('#banner').css('border-color',borderColors[0]);
                         break;
                     case 'green':
-                        $('#banner').css('border-color',colors[1]);
+                        $('#banner').css('border-color',borderColors[1]);
                         break;
                     case 'blue':
-                        $('#banner').css('border-color',colors[2]);
+                        $('#banner').css('border-color',borderColors[2]);
                         break;
                     default:
+                        randomColor();
                         $('#banner').css('border-color',colors[3]);
                 }
             });
@@ -58,9 +72,9 @@
 
 <body>
     Title!<br>
-    <input id='title' type='text'></input><br>
+    <input id='title' type='text'><br>
     Description!<br>
-    <input id='desc' type='text'></input><br>
+    <input id='desc' type='text'><br>
     COLORS!!!<br>
     Main Color<br>
     <input class='bannerColor' name='banner color' type='radio' value='red'>RED</input><br>
