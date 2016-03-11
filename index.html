@@ -6,64 +6,134 @@
     <title>Banner Generator</title>
     <script src='//code.jquery.com/jquery-1.12.0.min.js'></script>
     <script>
-        $(function(){
-            var tempA = [0,0,0];
+        $(function() {
+            var tempA = [0, 0, 0];
             var tempR;
-            var randomColor = function(){for(var i = 0;i<3;i++){
-                tempR = Math.floor(Math.random()*1000);
-                while(tempR>255){
-                    tempR = Math.floor(Math.random()*1000);
+            var randomColor = function() {
+                for (var i = 0; i < 3; i++) {
+                    do {
+                        tempR = Math.floor(Math.random() * 1000);
+                    } while (tempR > 255);
+                    tempA[i] = tempR;
                 }
-                tempA[i] = tempR;
-            }
                 colors[3] = 'rgb(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ')';
+                gradientColors[3] = 'rgba(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ',' + 0.5 + ')';
             };
-            $('#banner').css('display','none');
-            var colors = ['rgb(255,30,30)','rgb(50,250,0)','rgb(0,140,250)','rgb(100,100,100)'];
-            var borderColors = ['rgb(190,0,0)','rgb(0,200,0)','rgb(0,50,255)'];
-            var bannerColor;
-            var borderColor;
-            $('.bannerColor').click(function(){
+            $('#banner').css('display', 'none');
+            var colors = ['rgb(255,30,30)', 'rgb(50,250,0)', 'rgb(0,140,250)', 'rgb(100,100,100)'];
+            var borderColors = ['rgb(190,0,0)', 'rgb(0,200,0)', 'rgb(0,50,255)'];
+            var gradientColors = ['rgba(255,30,30,0.6)', 'rgba(50,250,0,0.4)', 'rgba(0,140,250,0.3)', 'rgba(0,0,0,0);'];
+            var bannerColor = '';
+            var borderColor = '';
+            var gradientDirection;
+            $('.bannerColor').click(function() {
                 bannerColor = $(this).val();
             });
-            $('.borderColor').click(function(){
+            $('.borderColor').click(function() {
                 borderColor = $(this).val();
             });
-            $('#generate').click(function(){
-                $('#banner').css({'display':'block','width':'1000px','height':'200px','border':'3px solid'});
+            $('.gradient').click(function() {
+                gradientDirection = $(this).val();
+            });
+            $('#generate').click(function() {
+                $('#banner').css({
+                    'display': 'block',
+                    'width': '1000px',
+                    'height': '200px',
+                    'border': '3px solid'
+                });
                 var title = $('#title').val();
                 var desc = $('#desc').val();
+                var tempS;
                 $('h1').html(title);
-                $('h1').css({'text-align':'center'});
+                $('h1').css({
+                    'text-align': 'center'
+                });
                 $('h3').html(desc);
-                $('h3').css({'text-align':'center'});
-                switch(bannerColor){
-                    case 'red':
-                        $('#banner').css('background-color',colors[0]);
+                $('h3').css({
+                    'text-align': 'center'
+                });
+                switch (gradientDirection) {
+                    case 'yes':
+                        switch (bannerColor) {
+                            case 'red':
+                                tempS = 'linear-gradient(to bottom right, ' + colors[0] + ', ' + gradientColors[0] + ')';
+                                $('#banner').css('background', tempS);
+                                break;
+                            case 'green':
+                                tempS = 'linear-gradient(to bottom right, ' + colors[1] + ', ' + gradientColors[1] + ')';
+                                $('#banner').css('background', tempS);
+                                break;
+                            case 'blue':
+                                tempS = 'linear-gradient(to bottom right, ' + colors[2] + ', ' + gradientColors[2] + ')';
+                                $('#banner').css('background', tempS);
+                                break;
+                            default:
+                                tempS = 'linear-gradient(to bottom right, ' + colors[3] + ', ' + gradientColors[3] + ')';
+                                randomColor();
+                                $('#banner').css('background', tempS);
+                        }
                         break;
-                    case 'green':
-                        $('#banner').css('background-color',colors[1]);
-                        break;
-                    case 'blue':
-                        $('#banner').css('background-color',colors[2]);
+                    case 'yesr':
+                        switch (bannerColor) {
+                            case 'red':
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[0] + ', ' + gradientColors[0] + ')';
+                                $('#banner').css('background', tempS);
+                                break;
+                            case 'green':
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[1] + ', ' + gradientColors[1] + ')';
+                                $('#banner').css('background', tempS);
+                                break;
+                            case 'blue':
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[2] + ', ' + gradientColors[2] + ')';
+                                $('#banner').css('background', tempS);
+                                break;
+                            default:
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[3] + ', ' + gradientColors[3] + ')';
+                                randomColor();
+                                $('#banner').css('background', tempS);
+                        }
                         break;
                     default:
-                        randomColor();
-                        $('#banner').css('background-color',colors[3]);
+                        switch (bannerColor) {
+                            case 'red':
+                                $('#banner').css('background-color', colors[0]);
+                                break;
+                            case 'green':
+                                $('#banner').css('background-color', colors[1]);
+                                break;
+                            case 'blue':
+                                $('#banner').css('background-color', colors[2]);
+                                break;
+                            default:
+                                randomColor();
+                                $('#banner').css('background-color', colors[3]);
+                        }
+                        break;
                 }
-                switch(borderColor){
+                switch (borderColor) {
                     case 'red':
-                        $('#banner').css('border-color',borderColors[0]);
+                        $('#banner').css('border-color', borderColors[0]);
                         break;
                     case 'green':
-                        $('#banner').css('border-color',borderColors[1]);
+                        $('#banner').css('border-color', borderColors[1]);
                         break;
                     case 'blue':
-                        $('#banner').css('border-color',borderColors[2]);
+                        $('#banner').css('border-color', borderColors[2]);
                         break;
                     default:
                         randomColor();
-                        $('#banner').css('border-color',colors[3]);
+                        $('#banner').css('border-color', colors[3]);
+                }
+                if(bannerColor == 'nothing' || bannerColor == ''){
+                    $('#bannerColorP').html('Like the banner color? The rgb is: ' + colors[3]);
+                }else{
+                    $('#bannerColorP').html('');
+                }
+                if(borderColor == 'nothing' || borderColor == ''){
+                    $('#borderColorP').html('Like the border color? The rgb is: ' + colors[3]);
+                }else{
+                    $('#borderColorP').html('');
                 }
             });
         });
@@ -71,23 +141,47 @@
 </head>
 
 <body>
-    Title!<br>
-    <input id='title' type='text'><br>
-    Description!<br>
-    <input id='desc' type='text'><br>
-    COLORS!!!<br>
-    Main Color<br>
-    <input class='bannerColor' name='banner color' type='radio' value='red'>RED</input><br>
-    <input class='bannerColor' name='banner color' type='radio' value='green'>GREEN</input><br>
-    <input class='bannerColor' name='banner color' type='radio' value='blue'>BLUE</input><br>
-    <input class='bannerColor' name='banner color' type='radio' value='nothing'>No Preference</input><br>
-    Border Color<br>
-    <input class='borderColor' name='border color' type='radio' value='red'>RED</input><br>
-    <input class='borderColor' name='border color' type='radio' value='green'>GREEN</input><br>
-    <input class='borderColor' name='border color' type='radio' value='blue'>BLUE</input><br>
-    <input class='borderColor' name='border color' type='radio' value='nothing'>No Preference</input><br>
-    <button id='generate'>Generate!</button><br>
-    <div id='banner'><h1></h1><br><h3></h3></div>
+    Title!
+    <br>
+    <input id='title' type='text'>
+    <br> Description!
+    <br>
+    <input id='desc' type='text'>
+    <br> COLORS!!!
+    <br> Main Color
+    <br>
+    <input class='bannerColor' name='banner color' type='radio' value='red'>RED</input>
+    <br>
+    <input class='bannerColor' name='banner color' type='radio' value='green'>GREEN</input>
+    <br>
+    <input class='bannerColor' name='banner color' type='radio' value='blue'>BLUE</input>
+    <br>
+    <input class='bannerColor' name='banner color' type='radio' value='nothing'>No Preference</input>
+    <br> Border Color
+    <br>
+    <input class='borderColor' name='border color' type='radio' value='red'>RED</input>
+    <br>
+    <input class='borderColor' name='border color' type='radio' value='green'>GREEN</input>
+    <br>
+    <input class='borderColor' name='border color' type='radio' value='blue'>BLUE</input>
+    <br>
+    <input class='borderColor' name='border color' type='radio' value='nothing'>No Preference</input>
+    <br> Gradient?!
+    <br>
+    <input class='gradient' name='gradient' type='radio' value='yes'>Yes
+    <br>
+    <input class='gradient' name='gradient' type='radio' value='yesr'>Yes, random direction.
+    <br>
+    <input class='gradient' name='gradient' type='radio' value='no'>No
+    <br>
+    <button id='generate'>Generate!</button>
+    <br>
+    <div id='banner'>
+        <h1></h1>
+        <br>
+        <h3></h3></div>
+    <p id='bannerColorP'></p>
+    <p id='borderColorP'></p>
 </body>
 
 </html>
