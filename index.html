@@ -111,6 +111,11 @@
                         }
                         break;
                 }
+                if(bannerColor == 'nothing' || bannerColor == ''){
+                    $('#bannerColorP').html('Like the banner color? The rgb is: ' + colors[3]);
+                }else{
+                    $('#bannerColorP').html('');
+                }
                 switch (borderColor) {
                     case 'red':
                         $('#banner').css('border-color', borderColors[0]);
@@ -124,11 +129,6 @@
                     default:
                         randomColor();
                         $('#banner').css('border-color', colors[3]);
-                }
-                if(bannerColor == 'nothing' || bannerColor == ''){
-                    $('#bannerColorP').html('Like the banner color? The rgb is: ' + colors[3]);
-                }else{
-                    $('#bannerColorP').html('');
                 }
                 if(borderColor == 'nothing' || borderColor == ''){
                     $('#borderColorP').html('Like the border color? The rgb is: ' + colors[3]);
