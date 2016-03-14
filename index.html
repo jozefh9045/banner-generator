@@ -6,36 +6,36 @@
     <title>Banner Generator</title>
     <script src='//code.jquery.com/jquery-1.12.0.min.js'></script>
     <script>
-        $(function() {
+        $(function() {  //I have to comment all this... This is going to be fun... X3
             var tempA = [0, 0, 0];
             var tempR;
-            var randomColor = function() {
+            var randomColor = function() {                                                                  //This defines a function to be used later that...
                 for (var i = 0; i < 3; i++) {
                     do {
-                        tempR = Math.floor(Math.random() * 1000);
-                    } while (tempR > 255);
-                    tempA[i] = tempR;
+                        tempR = Math.floor(Math.random() * 1000);                                           //...makes a random number...
+                    } while (tempR > 255);                                                                  //...that's between 0 and 255...
+                    tempA[i] = tempR;                                                                       //...which is stored in a temporary array...
                 }
-                colors[3] = 'rgb(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ')';
-                gradientColors[3] = 'rgba(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ',' + 0.5 + ')';
+                colors[3] = 'rgb(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ')';                      //...to be put into another array to give the banner...
+                gradientColors[3] = 'rgba(' + tempA[0] + ',' + tempA[1] + ',' + tempA[2] + ',' + 0.5 + ')'; //...and border colors if no color or random color was selected
             };
-            $('#banner').css('display', 'none');
+            $('#banner').css('display', 'none');    //makes the banner invisible for now
             var colors = ['rgb(255,30,30)', 'rgb(50,250,0)', 'rgb(0,140,250)', 'rgb(100,100,100)'];
             var borderColors = ['rgb(190,0,0)', 'rgb(0,200,0)', 'rgb(0,50,255)'];
             var gradientColors = ['rgba(255,30,30,0.6)', 'rgba(50,250,0,0.4)', 'rgba(0,140,250,0.3)', 'rgba(0,0,0,0);'];
             var bannerColor = '';
             var borderColor = '';
             var gradientDirection;
-            $('.bannerColor').click(function() {
+            $('.bannerColor').click(function() {    //these functions are here because I forgot how to get radio selections manually, so I used what I knew
                 bannerColor = $(this).val();
             });
-            $('.borderColor').click(function() {
+            $('.borderColor').click(function() {    // ^
                 borderColor = $(this).val();
             });
-            $('.gradient').click(function() {
+            $('.gradient').click(function() {       // ^
                 gradientDirection = $(this).val();
             });
-            $('#generate').click(function() {
+            $('#generate').click(function() {   //makes the banner visible
                 $('#banner').css({
                     'display': 'block',
                     'width': '1000px',
@@ -54,7 +54,7 @@
                 $('h3').css({
                     'text-align': 'center'
                 });
-                switch (gradientDirection) {
+                switch (gradientDirection) {    //these switches are here to give the banner customization depending on what the user chose
                     case 'yes':
                         switch (bannerColor) {
                             case 'red':
@@ -78,20 +78,20 @@
                     case 'yesr':
                         switch (bannerColor) {
                             case 'red':
-                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[0] + ', ' + gradientColors[0] + ')';
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[0] + ', ' + gradientColors[0] + ')';    //the Math.random here gives the gradient a random direction
                                 $('#banner').css('background', tempS);
                                 break;
                             case 'green':
-                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[1] + ', ' + gradientColors[1] + ')';
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[1] + ', ' + gradientColors[1] + ')';    // ^
                                 $('#banner').css('background', tempS);
                                 break;
                             case 'blue':
-                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[2] + ', ' + gradientColors[2] + ')';
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[2] + ', ' + gradientColors[2] + ')';    // ^
                                 $('#banner').css('background', tempS);
                                 break;
                             default:
                                 randomColor();
-                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[3] + ', ' + gradientColors[3] + ')';
+                                tempS = 'linear-gradient(' + Math.floor(Math.random() * 360) + 'deg, ' + colors[3] + ', ' + gradientColors[3] + ')';    // ^
                                 $('#banner').css('background', tempS);
                         }
                         break;
@@ -112,7 +112,7 @@
                         }
                         break;
                 }
-                if(bannerColor == 'nothing' || bannerColor == ''){
+                if(bannerColor == 'nothing' || bannerColor == ''){                                      //sometimes I see a color that I really like and I want to know what color it is, so I assume that other people would like to know how to get a color they really like as well
                     $('#bannerColorP').html('Like the banner color? The rgb is: ' + colors[3]);
                 }else{
                     $('#bannerColorP').html('');
@@ -131,7 +131,7 @@
                         randomColor();
                         $('#banner').css('border-color', colors[3]);
                 }
-                if(borderColor == 'nothing' || borderColor == ''){
+                if(borderColor == 'nothing' || borderColor == ''){                                      // ^
                     $('#borderColorP').html('Like the border color? The rgb is: ' + colors[3]);
                 }else{
                     $('#borderColorP').html('');
@@ -181,8 +181,8 @@
         <h1></h1>
         <br>
         <h3></h3></div>
-    <p id='bannerColorP'></p>
-    <p id='borderColorP'></p>
+    <p id='bannerColorP'></p>                                                                           <!-- ^ -->
+    <p id='borderColorP'></p>                                                                           <!-- ^ -->
 </body>
 
 </html>
